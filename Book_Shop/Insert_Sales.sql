@@ -12,8 +12,7 @@ VALUES
 (
 	 0,
 	(ABS(CHECKSUM(NEWID()) % 10) + 1),
-	(DATEADD(DAY, (ABS(CHECKSUM(NEWID())) % 365), '2020-01-01')
-	+ DATEADD(MINUTE, (ABS(CHECKSUM(NEWID())) % 600 + 480), 0)),
+	(DATEADD(DAY, (ABS(CHECKSUM(NEWID())) % 365), '2020-01-01')),
 	(ABS(CHECKSUM(NEWID()) % 68) + 1),
 	(ABS(CHECKSUM(NEWID()) % 14) + 1)
 )
@@ -22,7 +21,7 @@ END
 
 UPDATE 
 	Sales
-SET [Price] = B.[Price]
+SET [Price] = B.[Price] * 1.25
 FROM 
 	Sales S
 	JOIN Books B ON B.[Id] = S.[BookId] 

@@ -58,7 +58,7 @@
 --WHERE
 --	B.[Price] / B.[Pages] < 0.65
 --ORDER BY
---	B.[Name] + ',  ' + N'тематика - ' + T.[Name] + ',  ' + N'автор - ' + A.[Name] + ' ' + A.[Surname]
+--	1
 
 -- 6. Показать все книги, название которых состоит из 4 слов:
 --SELECT
@@ -93,7 +93,7 @@
 --	B.[Name] NOT LIKE N'%А%' AND
 --	T.[Name] <> N'Программирование' AND
 --	A.[Name] + ' ' + A.[Surname] <> N'Герберт Шилдт' AND
---	S.[Price] BETWEEN 300 AND 500 AND
+--	S.[Price] BETWEEN 500 AND 700 AND
 --	S.[Quantity] >= 8 AND
 --	C.[Name] <> N'Украина' AND
 --	C.[Name] <> N'Россия'
@@ -118,7 +118,7 @@
 --SELECT N'Средняя цена продажи',
 --	ROUND(AVG([Price]), 2)
 --FROM
---	Books
+--	Sales
 --UNION All
 --SELECT N'Среднее количество страниц',
 --	AVG([Pages])
