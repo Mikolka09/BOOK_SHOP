@@ -93,7 +93,7 @@
 --	B.[Name] NOT LIKE N'%А%' AND
 --	T.[Name] <> N'Программирование' AND
 --	A.[Name] + ' ' + A.[Surname] <> N'Герберт Шилдт' AND
---	S.[Price] BETWEEN 500 AND 700 AND
+--	S.[Price] BETWEEN 300 AND 500 AND
 --	S.[Quantity] >= 8 AND
 --	C.[Name] <> N'Украина' AND
 --	C.[Name] <> N'Россия'
@@ -211,7 +211,7 @@
  --15. Показать самый прибыльный магазин:
 --SELECT TOP 1
 --	Sh.[Name] AS [Shop],
---	SUM(S.[Quantity] * S.[Price]) AS [Summa] 
+--	ROUND(SUM(S.[Quantity] * S.[Price]), 2) AS [Summa] 
 --FROM
 --	Shops Sh
 --	JOIN Sales S ON S.[ShopId] = Sh.[Id]
