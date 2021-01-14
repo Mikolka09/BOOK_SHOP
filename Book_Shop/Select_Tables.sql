@@ -76,11 +76,11 @@
 --    ▷▷ Количество продаж, но не менее 8 книг.
 --    ▷▷ Название магазина, который продал книгу, но он не должен быть в Украине или России.
 --SELECT
---	B.[Name] AS [Book Name],
---	T.[Name] AS [Theme],
---	A.[Name] + ' ' + A.[Surname] AS [Author],
---	S.[Price] AS [Price],
---	S.[Quantity] AS [Quantly, cnt],
+--	MAX(B.[Name]) AS [Book Name],
+--	MAX(T.[Name]) AS [Theme],
+--	MAX(A.[Name] + ' ' + A.[Surname]) AS [Author],
+--	MAX(S.[Price]) AS [Price],
+--	SUM(S.[Quantity]) AS [Quantly, cnt],
 --	Sh.[Name] AS [Shop]
 --FROM
 --	Books B
@@ -97,6 +97,9 @@
 --	S.[Quantity] >= 8 AND
 --	C.[Name] <> N'Украина' AND
 --	C.[Name] <> N'Россия'
+--GROUP BY
+--	B.[Id],
+--	Sh.[Name]
 --ORDER BY
 --	4
 
@@ -127,13 +130,13 @@
 
 -- 9. Показать тематики книг и сумму страниц всех книг по каждой из них:
 --SELECT
---	T.[Name] AS [Theme],
+--	MAX(T.[Name]) AS [Theme],
 --	SUM(B.[Pages]) AS [Sum Pages, cnt]
 --FROM
 --	Themes T
 --	JOIN Books B ON B.[ThemeID] = T.[Id]
 --GROUP BY
---	T.[Name]
+--	T.[Id]
 --ORDER BY
 --	1
 
@@ -173,6 +176,8 @@
 --	T.[Name]
 --HAVING
 --	AVG(B.[Pages]) <= 400
+--ORDER BY
+--	1
 
 -- 13. Показать сумму страниц по каждой тематике, учитывая только книги с количеством страниц более 400, и чтобы
 --     тематики были «Программирование», «Администрирование» и «Дизайн»:
@@ -196,27 +201,30 @@
 -- 14. Показать информацию о работе магазинов: что, где, кем, когда и в каком количестве было продано:
 --SELECT
 --	Sh.[Name] AS [Shop],
---	C.[Name] AS [Country],
+--	MAX(C.[Name]) AS [Country],
 --	B.[Name] AS [Book],
---	S.[SaleDate] AS [SaleDate],
---	S.[Quantity] AS [Cnt]
+--	MAX(S.[SaleDate]) AS [SaleDate],
+--	SUM(S.[Quantity]) AS [Cnt]
 --FROM
 --	Shops Sh
 --	JOIN Countries C ON C.[Id] = Sh.[CountryId]
 --	JOIN Sales S ON S.[ShopId] = Sh.[Id]
 --	JOIN Books B ON B.[Id] = S.[BookId]
+--GROUP BY
+--	Sh.[Name],
+--	B.[Name]
 --ORDER BY
 --	Sh.[Name]
 	
  --15. Показать самый прибыльный магазин:
 --SELECT TOP 1
---	Sh.[Name] AS [Shop],
+--	MAX(Sh.[Name]) AS [Shop],
 --	ROUND(SUM(S.[Quantity] * S.[Price]), 2) AS [Summa] 
 --FROM
 --	Shops Sh
 --	JOIN Sales S ON S.[ShopId] = Sh.[Id]
 --GROUP BY
---	Sh.[Name]
+--	Sh.[Id]
 --ORDER BY
 --	2 DESC
 	
